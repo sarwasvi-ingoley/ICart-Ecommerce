@@ -5,3 +5,6 @@ def BASE(request):
 
 def HOME(request):
     return render(request, 'Main/index.html')
+
+def login(request):
+    return render(request, 'Main/login.html')
