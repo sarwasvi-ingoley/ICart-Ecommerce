@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from ICartApp.models import Product, SubCategory, FilterPrice, Color
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 
 def BASE(request):
     return render(request, 'Main/base.html')
@@ -99,7 +99,7 @@ def Handleregister(request):
 
     return render(request, 'Main/Registration/auth.html')
 
-def Handlogin(request):
+def Handlelogin(request):
     if request.method == 'POST':
         username = request.POST.get('username1')
         password = request.POST.get('password')
@@ -112,3 +112,6 @@ def Handlogin(request):
         
     return render(request, 'Main/Registration/auth.html')
 
+def Handlelogout(request):
+    logout(request)
+    return redirect('home')
