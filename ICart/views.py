@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
 from ICartApp.models import Product, SubCategory, FilterPrice, Color
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login, logout
 
 def BASE(request):
     return render(request, 'Main/base.html')
@@ -79,6 +81,37 @@ def PRODUCT_DETAIL_PAGE(request, id):
     return render(request, 'Main/product_single.html', context)
 
 
-def login(request):
-    return render(request, 'Main/login.html')
+def Handleregister(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        Firstname = request.POST.get('Firstname')
+        Lastname = request.POST.get('Lastname')
+        Email = request.POST.get('email')
+        password1 = request.POST.get('password1')
+        password2 = request.POST.get('password2')
+        customer = User.objects.create_user(username=username, email=Email, password=password1)
+        customer.first_name = Firstname
+        customer.last_name = Lastname
+        customer.save()
 
+        return redirect('register')
+
+
+    return render(request, 'Main/Registration/auth.html')
+
+def Handlelogin(request):
+    if request.method == 'POST':
+        username = request.POST.get('username1')
+        password = request.POST.get('password')
+        user = authenticate(request, username = username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('home')
+        else:
+            return redirect('login')
+        
+    return render(request, 'Main/Registration/auth.html')
+
+def Handlelogout(request):
+    logout(request)
+    return redirect('home')
