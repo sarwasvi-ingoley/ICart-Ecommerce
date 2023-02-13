@@ -15,7 +15,7 @@
                              <li><a href="tel:0123456789"><i class="fa fa-phone"></i> +012 3456 789</a></li>
                              <li><a href="mailto:demo@example.com"><i class="fa fa-envelope-o"></i> demo@example.com</a></li>
                              <li><a href="my-account.html"><i class="fa fa-user"></i> Account</a></li>
-                             <li><a href="{% url 'login' %}"><i class="fa fa-user"></i> Login</a></li>
+                             <li><a href="#"><i class="fa fa-user"></i> Login</a></li>
                          </ul>
                      </div>
                  </div>
@@ -29,8 +29,15 @@
              <div class="row justify-content-between align-items-center">
                  <div class="col-lg-3 col">
                      <div class="header-logo">
-                         <!-- <a href="index.html"><img src="{% static 'assets/images/logo/logo.png' %}" alt="Site Logo" /></a> -->
-                         <a href="index.html">ICart</a>
+                        
+                          
+                        <a href="{% url 'home' %}">
+                            <div class="grid-container">
+                                <div class="grid-item"><img src="{% static 'assets/images/icons/icart.png' %}" alt="Icart" style="height: 8rem;;"></div>
+                                <div class="grid-item" style="margin-top: 3rem; font-size: 3rem; margin-left: -2rem;">ICart</div>
+                            </div>
+                        </a>
+                    
                      </div>
                  </div>
                  <div class="col-lg-6 d-none d-lg-block">
@@ -38,10 +45,6 @@
                         <form action="/search/" method="get">
                             <input type="text" placeholder="Search" name="query" id="query"/>
                             <button><i class="pe-7s-search"></i></button>
-                        </form>
-                             <input type="text" placeholder="Search" />
-                             <button><i class="pe-7s-search"></i></button>
-                         </form>
                      </div>
                  </div>
                  <div class="col-lg-3 col">
@@ -72,7 +75,7 @@
                  <div class="col-lg-3 col">
                      <div class="header-logo">
                          <!-- <a href="index.html"><img src="{% static 'assets/images/logo/logo.png' %}" alt="Site Logo" /></a> -->
-                         <a href="index.html">ICart</a>
+                         <a href="{% url 'home' %}">ICart</a>
                      </div>
                  </div>
                  <div class="col-lg-6 d-none d-lg-block">
@@ -110,14 +113,11 @@
              <div class="header-nav">
                  <div class="main-menu position-relative">
                      <ul>
-                         <li class="dropdown"><a href="#">Home <i class="fa fa-angle-down" aria-hidden="true"></i></a>
-                             <ul class="sub-menu">
-                                 <li><a href="index.html">Home 1</a></li>
-                                 <li><a href="index-2.html">Home 2</a></li>
-                             </ul>
+                         <li class="dropdown"><a href="{% url 'home' %}">Home </a>
+                             
                          </li>
                          <li><a href="about.html">About</a></li>
-                         <li class="dropdown position-static"><a href="/products/">Products <i class="fa fa-angle-down"></i></a>
+                         <li class="dropdown position-static"><a href="{% url 'products' %}">Products <i class="fa fa-angle-down"></i></a>
                              <ul class="mega-menu d-block">
                                  <li class="d-flex">
                                      <ul class="d-block">
@@ -219,7 +219,7 @@
                                  </li>
                              </ul>
                          </li> -->
-                         <!-- <li><a href="contact.html">Contact</a></li> -->
+                         <li><a href="contact.html">Contact</a></li>
                      </ul>
                  </div>
              </div>
