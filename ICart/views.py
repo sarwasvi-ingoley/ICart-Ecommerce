@@ -77,3 +77,8 @@ def PRODUCT_DETAIL_PAGE(request, id):
         'prod':prod
     }
     return render(request, 'Main/product_single.html', context)
+
+
+def login(request):
+    return render(request, 'Main/login.html')
+
