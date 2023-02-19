@@ -13,7 +13,7 @@
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.ico" />
     <!-- CSS -->
-    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}" />
+    <!-- <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}" /> -->
     <link rel="stylesheet" href="{% static 'assets/css/font.awesome.css' %}" />
     <link rel="stylesheet" href="{% static 'assets/css/pe-icon-7-stroke.css' %}" />
     <link rel="stylesheet" href="{% static 'assets/css/animate.min.css' %}">
@@ -246,6 +246,28 @@
         </div>
     </div>
 
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="staticBackdropLabel">Select File</h5>
+              <a class="btn-close" data-bs-dismiss="modal" aria-label="Close"> <i class="pe-7s-close"></i></a>
+            </div>
+            <div class="modal-body">
+              <form action="">
+                <input type="file">
+              </form>
+              <h5 style="text-align: center; color: gray;">or drag a file here</h5>
+            </div>
+            <!-- <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="pe-7s-close"></i></button>
+              <button type="button" class="btn btn-primary">Understood</button>
+            </div> -->
+          </div>
+        </div>
+      </div>
+  
 
     <script src="{% static 'assets/js/vendor/bootstrap.bundle.min.js' %}"></script>
     <script src="{% static 'assets/js/vendor/jquery-3.6.0.min.js' %}"></script>

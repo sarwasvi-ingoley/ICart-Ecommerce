@@ -44,13 +44,19 @@
                     
                      </div>
                  </div>
-                 <div class="col-lg-6 d-none d-lg-block">
-                     <div class="search-element">
+                 <div class="col-lg-6 d-none d-lg-block ">
+                     <div class="search-element" style="z-index:2;">
                         <form action="/search/" method="get">
-                            <input type="text" placeholder="Search" name="query" id="query"/>
+                            <input type="text" placeholder="Search" name="query" id="query" style="z-index: 1; width: 100%;"/>
+                            <a href="" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="fa fa-camera" style="margin-top: 0.9rem; margin-left:-6rem; position: absolute;"></i></a>
                             <button><i class="pe-7s-search"></i></button>
+                        </form>
+                        
                      </div>
                  </div>
+                 <!-- Modal -->
+
+                 
                  <div class="col-lg-3 col">
                      <div class="header-actions">
                          <!-- Single Wedge Start -->
