@@ -143,7 +143,7 @@
                                 </span>
                             </div>
                             <div class="actions">
-                                        <button title="Add To Cart" class="action add-to-cart" data-bs-toggle="modal" data-bs-target="#exampleModal-Cart"><i
+                                        <button title="Add To Cart" class="action add-to-cart" data-bs-toggle="modal" data-bs-target="#exampleModal-Cart-{{forloop.counter}}"><i
                                             class="pe-7s-shopbag"></i></button>
                                         <button class="action wishlist" title="Wishlist" data-bs-toggle="modal" data-bs-target="#exampleModal-Wishlist"><i
                                                 class="pe-7s-like"></i></button>
@@ -357,7 +357,7 @@
             <div class="single-feture-col mb-md-30px mb-lm-30px">
                 <div class="single-feature">
                     <div class="feature-icon">
-                        <img src="{% static 'assets/images/icons/2.png" alt="">
+                        <img src="{% static 'assets/images/icons/2.png' %}" alt="">
                     </div>
                     <div class="feature-content">
                         <h4 class="title">Card Payments</h4>
