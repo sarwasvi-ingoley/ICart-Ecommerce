@@ -29,6 +29,8 @@ urlpatterns = [
     path('login/', views.Handlelogin, name= 'login'),
     path('logout/', views.Handlelogout, name='logout'),
     path('Register/', views.Handleregister, name= 'register'),
+    path('upload_file/', views.upload_file, name='upload_file'),
+    path('search_image/', views.search_image, name='search_image'),
 
     #cart
     path('cart/add/<int:id>/', views.cart_add, name='cart_add'),

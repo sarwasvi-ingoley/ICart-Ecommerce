@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
-from ICartApp.models import Product, SubCategory, FilterPrice, Color
+from ICartApp.models import Product, SubCategory, FilterPrice, Color, ImageUpload
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 from cart.cart import Cart
 
 
@@ -115,9 +116,38 @@ def Handlelogin(request):
         
     return render(request, 'Main/Registration/auth.html')
 
+
 def Handlelogout(request):
     logout(request)
     return redirect('home')
+
+def upload_file(request):
+    response=[]
+    if request.method == 'POST':
+        # get the data from the ajax post request
+        print(request)
+
+    # print(request.FILES.getlist('file'))
+    # print(request.FILES['file'])  # for single file
+    print('file: ', request.FILES)
+    doc=ImageUpload.objects.create(user_image=request.FILES['file'])
+    print('doc: ', doc.user_image)
+    request.session['uploadImage'] = str(doc.user_image)
+    print(request.session['uploadImage'])
+    response.append(doc.user_image.url)
+    return JsonResponse(response, safe=False)
+
+def search_image(request):
+    imgsrc = ''
+    if request.session.has_key('uploadImage'):
+        if(request.session['uploadImage']):
+            imgsrc = request.session['uploadImage']
+    print(imgsrc)
+    request.session['uploadImage'] = ''
+    context = {
+        'imgsrc': imgsrc,
+    }
+    return render(request,'Main/search_image.html', context)
 
 
 @login_required(login_url="/login/")
@@ -166,3 +196,4 @@ def cart_detail(request):
 
 def checkout(request):
     return render(request, 'Main/Cart/checkout.html')
+

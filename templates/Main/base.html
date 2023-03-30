@@ -32,6 +32,46 @@
             display: grid;
             grid-template-columns: auto auto auto;
         }
+        #drop-area {
+            border: 2px dashed #ccc;
+            width: 50%;
+            border-radius: 20px;
+            font-family: sans-serif;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        #drop-area.highlight {
+            border-color: purple;
+        }
+        p {
+            margin-top: 0;
+        }
+        .my-form {
+            margin-bottom: 10px;
+        }
+        #gallery {
+            margin-top: 10px;
+        }
+        #gallery img {
+            width: 150px;
+            margin-bottom: 10px;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px;
+            background: #ccc;
+            cursor: pointer;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .button:hover {
+            background: #ddd;
+        }
+        #fileElem {
+            display: none;
+        }
 
     </style>
 </head>
@@ -259,15 +299,23 @@
               <a class="btn-close" data-bs-dismiss="modal" aria-label="Close"> <i class="pe-7s-close"></i></a>
             </div>
             <div class="modal-body">
-              <form action="">
-                <input type="file">
-              </form>
-              <h5 style="text-align: center; color: gray;">or drag a file here</h5>
-            </div>
-            <!-- <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="pe-7s-close"></i></button>
-              <button type="button" class="btn btn-primary">Understood</button>
-            </div> -->
+                <div class="container">
+                  <div class="row py-4">
+                      <div class="col-lg-12 text-center">
+                          <div id="drop-area">
+                              <form class="my-form" action="" enctype="multipart/form-data">
+                                  {% csrf_token %}
+                                  <input type="file" name="file" id="fileElem" accept="image/*" onchange="handleFiles(this.files)">
+                                  <label class="button" for="fileElem">Select files</label>
+  
+                                  <h5 style="text-align: center; color: gray;">or drag a file here</h5>
+                              </form> 
+                              <div class="gallery" id="gallery"></div>  
+                          </div>
+                          <a href="{%url 'search_image'%}"><button type="submit" id="image" onclick="submitImage()">Submit</button></a>
+                      </div>
+                  </div>
+              </div>
           </div>
         </div>
       </div>
@@ -283,6 +331,7 @@
     <script src="{% static 'assets/js/plugins/venobox.min.js' %}"></script>
     <script src="{% static 'assets/js/plugins/jquery-ui.min.js' %}"></script>
     <script src="{% static 'assets/js/plugins/mailchimp-ajax.js' %}"></script>
+    <script src="{% static 'assets/js/drop.js' %}"></script>   
 
     <!-- Minify Version -->
     <script src="{% static 'assets/js/vendor.min.js' %}"></script>
