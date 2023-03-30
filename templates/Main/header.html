@@ -58,11 +58,11 @@
                  <div class="col-lg-3 col">
                      <div class="header-actions">
                          <!-- Single Wedge Start -->
-                         <a href="#offcanvas-wishlist" class="header-action-btn offcanvas-toggle">
+                         <a href="#offcanvas-wishlist" class="header-action-btn">
                              <i class="pe-7s-like"></i>
                          </a>
                          <!-- Single Wedge End -->
-                         <a href="{% url 'cart_detail' %}" class="header-action-btn header-action-btn-cart offcanvas-toggle pr-0">
+                         <a href="{% url 'cart_detail' %}" class="header-action-btn header-action-btn-cart pr-0">
                              <i class="pe-7s-shopbag"></i>
                              <span class="header-action-num">{{request.session.cart|length}}</span>
                              <!-- <span class="cart-amount">€30.00</span> -->
@@ -101,7 +101,7 @@
                              <i class="pe-7s-like"></i>
                          </a>
                          <!-- Single Wedge End -->
-                         <a href="{% url 'cart_detail' %}" class="header-action-btn header-action-btn-cart offcanvas-toggle pr-0">
+                         <a href="{% url 'cart_detail' %}" class="header-action-btn header-action-btn-cart pr-0">
                              <i class="pe-7s-shopbag"></i>
                              <span class="header-action-num">{{request.session.cart|length}}</span>
                              <!-- <span class="cart-amount">€30.00</span> -->
