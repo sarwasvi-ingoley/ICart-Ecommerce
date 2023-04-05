@@ -4,11 +4,17 @@
 <div class="container">
     <br>
     <h2>Search Result </h2>
-    {% if imgsrc %} 
+    <img src="/{{query_path}}" height="200px">
+    {% for score in scores %}
+        <figure style="margin-right: 20px; margin-bottom: 20px; margin: 5px ;">
+            <img src="/{{ score.1 }}" height="200px" style="float:left;">
+        </figure>
+    {% endfor %} 
+    <!-- {% if imgsrc %} 
     <img src="/{{imgsrc}}" alt="Image can't be displayed">
     {% else %}
     <p>Image not Uploaded</p>
-    {% endif %}
+    {% endif %}-->
 </div>
 
 {% endblock %}

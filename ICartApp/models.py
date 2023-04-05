@@ -67,7 +67,7 @@ class Images(models.Model):
     product=models.ForeignKey(Product, on_delete=models.CASCADE)
 
 class ImageUpload(models.Model):
-    user_image=models.ImageField(upload_to='UploadImage/userimages')
+    user_image=models.ImageField(upload_to='static/uploaded')
     def __str__(self) -> str:
         return self.image.url
     

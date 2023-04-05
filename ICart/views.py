@@ -5,6 +5,12 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from cart.cart import Cart
+import numpy as np
+from PIL import Image
+from .feature_extractor import FeatureExtractor
+from datetime import datetime
+from pathlib import Path
+import os
 
 
 def BASE(request):
@@ -137,18 +143,108 @@ def upload_file(request):
     response.append(doc.user_image.url)
     return JsonResponse(response, safe=False)
 
-def search_image(request):
-    imgsrc = ''
-    if request.session.has_key('uploadImage'):
-        if(request.session['uploadImage']):
-            imgsrc = request.session['uploadImage']
-    print(imgsrc)
-    request.session['uploadImage'] = ''
-    context = {
-        'imgsrc': imgsrc,
-    }
-    return render(request,'Main/search_image.html', context)
+#def search_image2(request):
+#    imgsrc = ''
+#    if request.session.has_key('uploadImage'):
+#        if(request.session['uploadImage']):
+#            imgsrc = request.session['uploadImage']
+#    print(imgsrc)
+#    request.session['uploadImage'] = ''
+#    context = {
+#        'imgsrc': imgsrc,
+#    }
+#    return render(request,'Main/search_image.html', context)
 
+def search_image(request):
+    fe = FeatureExtractor()
+    features = []
+    img_paths = []
+    for feature_path in Path("static/feature").glob("*.npy"):
+        features.append(np.load(feature_path))
+        img_paths.append(Path("static/img") / (feature_path.stem + ".jpg"))
+    features = np.array(features)
+    
+
+    imgsrc = ''
+    if 'uploadImage' in request.session:
+        if request.session['uploadImage']:
+            imgsrc = request.session['uploadImage']
+            img = Image.open(imgsrc)
+            query = fe.extract(img)
+            dists = np.linalg.norm(features-query, axis=1)
+            ids = np.argsort(dists)[:30] 
+            scores = [(dists[id], img_paths[id]) for id in ids]
+            context = {'query_path': imgsrc, 'scores': scores}
+            print(imgsrc)
+    #file_path = request.session['uploadImage']
+    #with open(file_path, 'rb') as f:
+    #    img = Image.open(f)
+    #uploaded_img_path = "static/uploaded/" + datetime.now().isoformat().replace(":", ".") + "_" + os.path.basename(file_path)
+    ##img.save(uploaded_img_path)
+    #query = fe.extract(img)
+    #dists = np.linalg.norm(features-query, axis=1)  
+#
+    
+    return render(request,'Main/search_image.html',context)
+   
+    #imgsrc = ''
+    #if 'uploadImage' in request.session:
+    #    if request.session['uploadImage']:
+    #        imgsrc = request.session['uploadImage']
+    #print(imgsrc)
+    #file = imgsrc
+    #
+    #img = Image.open(file)
+    #
+    #uploaded_img_path = "static/uploaded" + datetime.now().isoformat().replace(":", ".") + "_" + file.filename
+    #img.save(uploaded_img_path)
+
+    #query = fe.extract(img)
+    #dists = np.linalg.norm(features-query, axis=1)  
+    #
+    #ids = np.argsort(dists)[:30] 
+    #scores = [(dists[id], str(img_paths[id])) for id in ids]
+    #
+    #context = {'query_path': uploaded_img_path, 'scores': scores}
+    #print("11")
+    #return render(request, 'Main/search_image.html', context)
+    
+
+#def search_image1(request):
+#    fe = FeatureExtractor()
+#    features = []
+#    img_paths = []
+#    for feature_path in Path("./static/feature").glob("*.npy"):
+#        features.append(np.load(feature_path))
+#        img_paths.append(Path("./static/img") / (feature_path.stem + ".jpg"))
+#    features = np.array(features)
+#    if request.method == 'POST':
+#        imgsrc = ''
+#        if request.session.has_key('uploadImage'):
+#            if(request.session['uploadImage']):
+#                imgsrc = request.session['uploadImage']
+#        print(imgsrc)
+#        file = request.session['uploadImage']
+#
+#        
+#        img = Image.open(file.stream)  
+#        uploaded_img_path = "static/image" + datetime.now().isoformat().replace(":", ".") + "_" + file.filename
+#        img.save(uploaded_img_path)
+#
+#       
+#        query = fe.extract(img)
+#        dists = np.linalg.norm(features-query, axis=1)  
+#        ids = np.argsort(dists)[:30] 
+#        scores = [(dists[id], img_paths[id]) for id in ids]
+#        query_path=uploaded_img_path
+#        context = {
+#        'imgsrc': query_path,
+#    }
+#        return render(request,'Main/search_image.html',context)
+#        
+#    else:
+#        return render(request,'Main/search_image.html')
+#
 
 @login_required(login_url="/login/")
 def cart_add(request, id):
